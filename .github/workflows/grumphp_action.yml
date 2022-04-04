@@ -1,13 +1,9 @@
 name: Grumphp action for CI
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
-  UnitTests:
+  Grumphp:
 
     runs-on: ubuntu-latest
 
