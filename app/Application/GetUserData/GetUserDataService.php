@@ -22,7 +22,7 @@ class GetUserDataService
     }
 
     /**
-     * @param string $email
+     * @param int $userId
      * @return array
      * @throws Exception
      */

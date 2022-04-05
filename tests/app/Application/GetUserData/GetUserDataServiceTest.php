@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class GetUserDataServiceTest extends TestCase
 {
-    private GetUserDataService $receiveUserData;
+    private GetUserDataService $getUserDataService;
     private UserDataSource $userDataSource;
 
     /**
@@ -23,7 +23,7 @@ class GetUserDataServiceTest extends TestCase
 
         $this->userDataSource = Mockery::mock(UserDataSource::class);
 
-        $this->receiveUserData = new GetUserDataService($this->userDataSource);
+        $this->getUserDataService = new GetUserDataService($this->userDataSource);
     }
 
     /**
@@ -34,8 +34,6 @@ class GetUserDataServiceTest extends TestCase
         $email = 'random_email@email.com';
         $userId = 999;
 
-        $user = new User($userId, $email);
-
         $this->userDataSource
             ->expects('findByID')
             ->with($userId)
@@ -44,6 +42,6 @@ class GetUserDataServiceTest extends TestCase
 
         $this->expectException(Exception::class);
 
-        $this->receiveUserData->getUserData($userId);
+        $this->getUserDataService->getUserData($userId);
     }
 }
