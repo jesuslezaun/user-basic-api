@@ -32,7 +32,7 @@ class IsEarlyAdopterService
 
         $isEarlyAdopter = false;
 
-        if ($user->getId() < 1000) {
+        if ($user->getUserId() < 1000) {
             $isEarlyAdopter = true;
         }
 

@@ -44,4 +44,26 @@ class GetUserDataServiceTest extends TestCase
 
         $this->getUserDataService->getUserData($userId);
     }
+
+    /**
+     * @test
+     */
+    public function getUserDataForGivenId()
+    {
+        $email = 'email@email.com';
+        $userId = 1;
+
+        $user = new User($userId, $email);
+
+        $this->userDataSource
+            ->expects('findById')
+            ->with($userId)
+            ->once()
+            ->andReturn($user);
+
+        $getUserDataService = $this->getUserDataService->getUserData($userId);
+
+        $this->assertEquals(1, $getUserDataService->getUserId());
+        $this->assertEquals('email@email.com', $getUserDataService->getEmail());
+    }
 }

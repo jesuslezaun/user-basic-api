@@ -30,5 +30,10 @@ class GetUserDataController extends BaseController
                 'error' => $exception->getMessage()
             ], Response::HTTP_BAD_REQUEST);
         }
+
+        return response()->json([
+            'id' => $getUserDataService->getUserId(),
+            'email' => $getUserDataService->getEmail()
+        ], Response::HTTP_OK);
     }
 }

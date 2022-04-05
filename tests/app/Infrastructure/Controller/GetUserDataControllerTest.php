@@ -39,4 +39,22 @@ class GetUserDataControllerTest extends TestCase
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST)->assertExactJson(['error' => 'User not found']);
     }
+
+    /**
+     * @test
+     */
+    public function getUserDataForGivenId()
+    {
+        $user = new User(1, 'email@email.com');
+
+        $this->userDataSource
+            ->expects('findById')
+            ->with('1')
+            ->once()
+            ->andReturn($user);
+
+        $response = $this->get('/api/users/1');
+
+        $response->assertStatus(Response::HTTP_OK)->assertExactJson(['id' => 1, 'email' => 'email@email.com']);
+    }
 }

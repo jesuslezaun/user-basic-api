@@ -4,6 +4,7 @@ namespace App\Application\GetUserData;
 
 use App\Application\UserDataSource\UserDataSource;
 use Exception;
+use http\Client\Curl\User;
 
 class GetUserDataService
 {
@@ -23,11 +24,12 @@ class GetUserDataService
 
     /**
      * @param int $userId
-     * @return array
+     * @return \App\Domain\User
      * @throws Exception
      */
-    public function getUserData(int $userId): array
+    public function getUserData(int $userId): \App\Domain\User
     {
         $user = $this->userDataSource->findByID($userId);
+        return $user;
     }
 }
