@@ -71,7 +71,7 @@
             "phpunit --configuration phpunit.xml"
         ],
         "grumphp": [
-            "php ./vendor/bin/grumphp run"
+            "php ./vendor/bin/grumphp run --no-interaction"
         ]
     }
 }
