@@ -1,16 +1,16 @@
 <?php
 
-namespace Tests\app\Infrastructure\Controller;
+namespace Tests\app\Application\GetUsersIdsList;
 
+use App\Application\GetUsersIdsList\GetUsersIdsListService;
 use App\Application\UserDataSource\UserDataSource;
-use App\Domain\User;
 use Exception;
-use Illuminate\Http\Response;
 use Mockery;
-use Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
-class GetUsersIdsListControllerTest extends TestCase
+class GetUsersIdsListServiceTest extends TestCase
 {
+    private GetUsersIdsListService $getIdsListService;
     private UserDataSource $userDataSource;
 
     /**
@@ -21,24 +21,22 @@ class GetUsersIdsListControllerTest extends TestCase
         parent::setUp();
 
         $this->userDataSource = Mockery::mock(UserDataSource::class);
-        $this->app->bind(UserDataSource::class, fn () => $this->userDataSource);
+
+        $this->getIdsListService = new GetUsersIdsListService($this->userDataSource);
     }
 
     /**
      * @test
      */
-    public function petitionGeneratesGenericError()
+    public function callReturnsGenericError()
     {
         $this->userDataSource
             ->expects('getUsersIdsList')
             ->once()
             ->andThrow(new Exception('Hubo un error al realizar la peticion'));
 
-        $response = $this->get('/api/users/list');
+        $this->expectException(Exception::class);
 
-        $response->assertStatus(
-            Response::HTTP_BAD_REQUEST
-        )
-            ->assertExactJson(['error' => 'Hubo un error al realizar la peticion']);
+        $this->getIdsListService->execute();
     }
 }

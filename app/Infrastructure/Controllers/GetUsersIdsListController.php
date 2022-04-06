@@ -2,23 +2,32 @@
 
 namespace App\Infrastructure\Controllers;
 
+use App\Application\GetUsersIdsList\GetUsersIdsListService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 
 class GetUsersIdsListController extends BaseController
 {
+    private GetUsersIdsListService $getIdsListService;
+
     /**
      * GetUsersIdsListController constructor.
      */
-    public function __construct()
+    public function __construct(GetUsersIdsListService $getIdsListService)
     {
+        $this->getIdsListService = $getIdsListService;
     }
 
     public function __invoke(): JsonResponse
     {
-        return response()->json([
-            'error' => 'Hubo un error al realizar la peticion'
-        ], Response::HTTP_BAD_REQUEST);
+        try {
+            $this->getIdsListService->execute();
+        } catch (Exception $exception) {
+            return response()->json([
+                'error' => $exception->getMessage()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }
