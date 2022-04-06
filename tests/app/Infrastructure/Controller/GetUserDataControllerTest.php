@@ -69,4 +69,23 @@ class GetUserDataControllerTest extends TestCase
             ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertExactJson(['error' => 'User ID missing on petition']);
     }
+
+    /**
+     * @test
+     */
+    public function petitionGeneratesGenericError()
+    {
+        $this->userDataSource
+            ->expects('findById')
+            ->with('1')
+            ->once()
+            ->andThrow(new Exception('Hubo un error al realizar la peticion'));
+
+        $response = $this->get('/api/users/1');
+
+        $response->assertStatus(
+            Response::HTTP_BAD_REQUEST
+        )
+            ->assertExactJson(['error' => 'Hubo un error al realizar la peticion']);
+    }
 }

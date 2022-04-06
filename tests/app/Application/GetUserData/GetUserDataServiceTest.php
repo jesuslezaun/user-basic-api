@@ -66,4 +66,20 @@ class GetUserDataServiceTest extends TestCase
         $this->assertEquals(1, $getUserDataService->getUserId());
         $this->assertEquals('email@email.com', $getUserDataService->getEmail());
     }
+
+    /**
+     * @test
+     */
+    public function callReturnsGenericError()
+    {
+        $this->userDataSource
+            ->expects('findById')
+            ->with(1)
+            ->once()
+            ->andThrow(new Exception('Hubo un error al realizar la peticion'));
+
+        $this->expectException(Exception::class);
+
+        $this->getUserDataService->getUserData(1);
+    }
 }
