@@ -31,3 +31,5 @@ Route::get('user/{email}', IsEarlyAdopterUserController::class);
 Route::get('users/list', GetUsersListController::class);
 
 Route::get('users/{userId}', GetUserDataController::class);
+
+Route::get('users', GetUserDataController::class);

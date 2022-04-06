@@ -9,6 +9,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 
+use function PHPUnit\Framework\isNull;
+
 class GetUserDataController extends BaseController
 {
     private $getUserDataService;
@@ -21,8 +23,14 @@ class GetUserDataController extends BaseController
         $this->getUserDataService = $getUserDataService;
     }
 
-    public function __invoke(int $userId): JsonResponse
+    public function __invoke(int $userId = null): JsonResponse
     {
+        if ($userId == null) {
+            return response()->json([
+                'error' => 'User ID missing on petition'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
         try {
             $getUserDataService = $this->getUserDataService->getUserData($userId);
         } catch (Exception $exception) {

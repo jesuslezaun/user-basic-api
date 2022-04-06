@@ -57,4 +57,16 @@ class GetUserDataControllerTest extends TestCase
 
         $response->assertStatus(Response::HTTP_OK)->assertExactJson(['id' => 1, 'email' => 'email@email.com']);
     }
+
+    /**
+     * @test
+     */
+    public function userIdMissingOnPetition()
+    {
+        $response = $this->get('/api/users');
+
+        $response
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertExactJson(['error' => 'User ID missing on petition']);
+    }
 }
