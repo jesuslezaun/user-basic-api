@@ -39,4 +39,19 @@ class GetUsersIdsListServiceTest extends TestCase
 
         $this->getIdsListService->execute();
     }
+
+    /**
+     * @test
+     */
+    public function thereAreNoUsers()
+    {
+        $this->userDataSource
+            ->expects('getUsersIdsList')
+            ->once()
+            ->andReturns([]);
+
+        $usersIdsList = $this->getIdsListService->execute();
+
+        $this->assertEquals([], $usersIdsList);
+    }
 }

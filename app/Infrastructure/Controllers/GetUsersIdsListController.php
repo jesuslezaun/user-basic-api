@@ -29,5 +29,7 @@ class GetUsersIdsListController extends BaseController
                 'error' => $exception->getMessage()
             ], Response::HTTP_BAD_REQUEST);
         }
+
+        return response()->json([], Response::HTTP_OK);
     }
 }

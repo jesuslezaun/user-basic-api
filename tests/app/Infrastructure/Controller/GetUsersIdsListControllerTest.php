@@ -41,4 +41,19 @@ class GetUsersIdsListControllerTest extends TestCase
         )
             ->assertExactJson(['error' => 'Hubo un error al realizar la peticion']);
     }
+
+    /**
+     * @test
+     */
+    public function thereAreNoUsers()
+    {
+        $this->userDataSource
+            ->expects('getUsersIdsList')
+            ->once()
+            ->andReturn([]);
+
+        $response = $this->get('/api/users/list');
+
+        $response->assertStatus(Response::HTTP_OK)->assertExactJson([]);
+    }
 }
