@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 use Mockery;
 use Tests\TestCase;
 
-class GetUsersIdsListControllerTest extends TestCase
+class GetUsersListControllerTest extends TestCase
 {
     private UserDataSource $userDataSource;
 
@@ -30,7 +30,7 @@ class GetUsersIdsListControllerTest extends TestCase
     public function petitionGeneratesGenericError()
     {
         $this->userDataSource
-            ->expects('getUsersIdsList')
+            ->expects('getUsersList')
             ->once()
             ->andThrow(new Exception('Hubo un error al realizar la peticion'));
 
@@ -48,12 +48,27 @@ class GetUsersIdsListControllerTest extends TestCase
     public function thereAreNoUsers()
     {
         $this->userDataSource
-            ->expects('getUsersIdsList')
+            ->expects('getUsersList')
             ->once()
             ->andReturn([]);
 
         $response = $this->get('/api/users/list');
 
         $response->assertStatus(Response::HTTP_OK)->assertExactJson([]);
+    }
+
+    /**
+     * @test
+     */
+    public function thereAreMultipleUsers()
+    {
+        $this->userDataSource
+            ->expects('getUsersList')
+            ->once()
+            ->andReturn([1,2,3]);
+
+        $response = $this->get('/api/users/list');
+
+        $response->assertStatus(Response::HTTP_OK)->assertExactJson([['id' => 1],['id' => 2],['id' => 3]]);
     }
 }

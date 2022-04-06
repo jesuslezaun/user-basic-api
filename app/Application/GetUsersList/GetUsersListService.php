@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Application\GetUsersIdsList;
+namespace App\Application\GetUsersList;
 
 use App\Application\UserDataSource\UserDataSource;
 use Exception;
 
-class GetUsersIdsListService
+class GetUsersListService
 {
     /**
      * @var UserDataSource
@@ -27,6 +27,6 @@ class GetUsersIdsListService
      */
     public function execute(): array
     {
-        return $this->userDataSource->getUsersIdsList();
+        return $this->userDataSource->getUsersList();
     }
 }
