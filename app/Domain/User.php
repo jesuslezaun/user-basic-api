@@ -2,19 +2,25 @@
 
 namespace App\Domain;
 
+use PhpParser\Node\Scalar\String_;
+
 class User
 {
-    private int $id;
+    private int $userId;
     private string $email;
 
-    public function __construct(int $id, string $email)
+    public function __construct(int $userId, string $email)
     {
-        $this->id = $id;
+        $this->userId = $userId;
         $this->email = $email;
     }
 
-    public function getId(): int
+    public function getUserId(): int
     {
-        return $this->id;
+        return $this->userId;
+    }
+    public function getEmail(): string
+    {
+        return $this->email;
     }
 }

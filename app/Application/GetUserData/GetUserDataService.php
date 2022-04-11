@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Application\GetUsersList;
+namespace App\Application\GetUserData;
 
 use App\Application\UserDataSource\UserDataSource;
+use App\Domain\User;
 use Exception;
 
-class GetUsersListService
+class GetUserDataService
 {
     /**
      * @var UserDataSource
      */
-    private UserDataSource $userDataSource;
+    private $userDataSource;
 
     /**
-     * IsEarlyAdopterService constructor.
+     * GetUserDataService constructor.
      * @param UserDataSource $userDataSource
      */
     public function __construct(UserDataSource $userDataSource)
@@ -22,11 +23,12 @@ class GetUsersListService
     }
 
     /**
-     * @return array
+     * @param int $userId
+     * @return \App\Domain\User
      * @throws Exception
      */
-    public function execute(): array
+    public function getUserData(int $userId): User
     {
-        return $this->userDataSource->getUsersList();
+        return $this->userDataSource->findByID($userId);
     }
 }
