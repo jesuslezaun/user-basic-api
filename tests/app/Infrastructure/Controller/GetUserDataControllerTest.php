@@ -83,9 +83,8 @@ class GetUserDataControllerTest extends TestCase
 
         $response = $this->get('/api/users/1');
 
-        $response->assertStatus(
-            Response::HTTP_BAD_REQUEST
-        )
+        $response
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertExactJson(['error' => 'Hubo un error al realizar la peticion']);
     }
 }

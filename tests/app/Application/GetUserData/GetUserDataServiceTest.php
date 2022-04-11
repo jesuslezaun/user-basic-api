@@ -31,7 +31,6 @@ class GetUserDataServiceTest extends TestCase
      */
     public function userNotFoundForGivenId()
     {
-        $email = 'random_email@email.com';
         $userId = 999;
 
         $this->userDataSource
@@ -71,14 +70,16 @@ class GetUserDataServiceTest extends TestCase
      */
     public function callReturnsGenericError()
     {
+        $userId = 1;
+
         $this->userDataSource
             ->expects('findById')
-            ->with(1)
+            ->with($userId)
             ->once()
             ->andThrow(new Exception('Hubo un error al realizar la peticion'));
 
         $this->expectException(Exception::class);
 
-        $this->getUserDataService->getUserData(1);
+        $this->getUserDataService->getUserData($userId);
     }
 }

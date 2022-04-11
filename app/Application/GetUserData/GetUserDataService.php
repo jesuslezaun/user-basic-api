@@ -3,8 +3,8 @@
 namespace App\Application\GetUserData;
 
 use App\Application\UserDataSource\UserDataSource;
+use App\Domain\User;
 use Exception;
-use http\Client\Curl\User;
 
 class GetUserDataService
 {
@@ -27,9 +27,8 @@ class GetUserDataService
      * @return \App\Domain\User
      * @throws Exception
      */
-    public function getUserData(int $userId): \App\Domain\User
+    public function getUserData(int $userId): User
     {
-        $user = $this->userDataSource->findByID($userId);
-        return $user;
+        return $this->userDataSource->findByID($userId);
     }
 }
