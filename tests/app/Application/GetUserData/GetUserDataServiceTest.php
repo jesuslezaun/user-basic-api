@@ -63,8 +63,7 @@ class GetUserDataServiceTest extends TestCase
 
         $getUserDataService = $this->getUserDataService->getUserData($userId);
 
-        $this->assertEquals(1, $getUserDataService->getUserId());
-        $this->assertEquals('email@email.com', $getUserDataService->getEmail());
+        $this->assertEquals($user, $getUserDataService);
     }
 
     /**
